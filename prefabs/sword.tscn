@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://cs7jebttpra2k"]
+
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="1_hunkc"]
+[ext_resource type="PackedScene" uid="uid://cjuu52pwmx2oh" path="res://prefabs/scimitar.tscn" id="2_n72do"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j13v1"]
+size = Vector3(0.05, 0.2, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6fnop"]
+size = Vector3(0.04, 0.7, 0.01)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ch231"]
+size = Vector3(0.04, 0.034, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_02wxd"]
+size = Vector3(0.2, 0.05, 0.03)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cgbs2"]
+radius = 0.1
+height = 1.0102
+
+[node name="Sword" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_hunkc")
+
+[node name="Hilt" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_j13v1")
+
+[node name="Blade" type="MeshInstance3D" parent="Hilt"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0.43, 0)
+mesh = SubResource("BoxMesh_6fnop")
+skeleton = NodePath("../../../..")
+
+[node name="Point" type="MeshInstance3D" parent="Hilt/Blade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365749, 0)
+mesh = SubResource("PrismMesh_ch231")
+skeleton = NodePath("../../..")
+
+[node name="CrossGuard" type="MeshInstance3D" parent="Hilt"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_02wxd")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449969, 0)
+shape = SubResource("CapsuleShape3D_cgbs2")
+
+[node name="Scimitar" parent="." instance=ExtResource("2_n72do")]
+transform = Transform3D(-0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 0, 0.0521671, 0)
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

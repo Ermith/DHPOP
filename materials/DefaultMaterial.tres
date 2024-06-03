@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bxvyufq3gn2ge"]
+
+[ext_resource type="Texture2D" uid="uid://xy4xw0suoyt2" path="res://materials/50-free-textures-4+normalmaps/172_norm.JPG" id="1_30kfr"]
+
+[resource]
+albedo_color = Color(0.52549, 0.352941, 0.137255, 1)
+metallic = 0.27
+metallic_specular = 0.0
+roughness = 0.67
+normal_enabled = true
+normal_texture = ExtResource("1_30kfr")
+uv1_scale = Vector3(5, 5, 5)

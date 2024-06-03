@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4jiygs45ejv7"]
+
+[ext_resource type="Material" uid="uid://c23q4343gxnd1" path="res://materials/EnemyMaterial.tres" id="1_g63j5"]
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_huo4c"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4l5iq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f6x55"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_huo4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_g63j5")
+mesh = SubResource("BoxMesh_4l5iq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_f6x55")

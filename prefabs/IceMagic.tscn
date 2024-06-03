@@ -1,0 +1,203 @@
+[gd_scene load_steps=28 format=3 uid="uid://nbc4vhf8nlht"]
+
+[ext_resource type="Script" path="res://scripts/IceMagic.gd" id="1_kdxkj"]
+[ext_resource type="Texture2D" uid="uid://cy1utgexi70tj" path="res://materials/alphaPNG/smoke_07.png.Name.png" id="2_66hob"]
+[ext_resource type="Texture2D" uid="uid://bjdfqccmvj5wl" path="res://materials/alphaPNG/smoke_01.png.Name.png" id="3_363yq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rgjr"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_evlt3"]
+material = SubResource("StandardMaterial3D_8rgjr")
+radius = 0.04
+height = 0.08
+
+[sub_resource type="Curve" id="Curve_72ul7"]
+_data = [Vector2(0, 0.000569344), 0.0, 0.0, 0, 0, Vector2(0.491279, 0.859339), -0.218288, -0.218288, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_suc85"]
+curve = SubResource("Curve_72ul7")
+
+[sub_resource type="Curve" id="Curve_n1j02"]
+_data = [Vector2(0.00290698, 0.689066), 0.0, 0.344148, 0, 0, Vector2(0.488372, 0.711276), 0.1306, 0.1306, 0, 0, Vector2(1, 0.444761), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0fyyu"]
+resource_local_to_scene = true
+curve = SubResource("Curve_n1j02")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lrajx"]
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_max = 0.2
+gravity = Vector3(0, -0.4, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_0fyyu")
+color = Color(0, 1, 1, 1)
+alpha_curve = SubResource("CurveTexture_suc85")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5df6"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_66hob")
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 0.16
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_mpkbo"]
+material = SubResource("StandardMaterial3D_n5df6")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_0k5po"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.422764, 1), -0.386185, -0.386185, 0, 0, Vector2(1, 0.010989), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1uj6e"]
+curve = SubResource("Curve_0k5po")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yxfrm"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 0.1
+gravity = Vector3(0, -0.5, 0)
+scale_min = 0.0
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_1uj6e")
+
+[sub_resource type="Curve" id="Curve_q4w5a"]
+_data = [Vector2(0, 0.980882), 0.0, 0.0, 0, 0, Vector2(1, 0.00588238), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qtjwr"]
+albedo_color = Color(1, 0.556863, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.976471, 1, 1)
+emission_energy_multiplier = 10.09
+use_particle_trails = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_adjal"]
+material = SubResource("StandardMaterial3D_qtjwr")
+radius = 0.01
+curve = SubResource("Curve_q4w5a")
+
+[sub_resource type="Curve" id="Curve_o5u86"]
+_data = [Vector2(0, 0.244875), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.244875), 0.0, 0.0, 0, 0, Vector2(0.619186, 0.822323), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ji1p8"]
+curve = SubResource("Curve_o5u86")
+
+[sub_resource type="Curve" id="Curve_xn7q2"]
+_data = [Vector2(0.00872093, 0.0968108), 0.0, 2.92121, 0, 0, Vector2(0.395349, 0.659453), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tcj8t"]
+resource_local_to_scene = true
+curve = SubResource("Curve_xn7q2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6lfur"]
+direction = Vector3(0, 0, -1)
+spread = 5.0
+initial_velocity_min = 6.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_tcj8t")
+color = Color(0, 1, 1, 1)
+alpha_curve = SubResource("CurveTexture_ji1p8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ow7y0"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_363yq")
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 0.4
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_distance = 0.01
+distance_fade_max_distance = 0.01
+
+[sub_resource type="QuadMesh" id="QuadMesh_6qs48"]
+material = SubResource("StandardMaterial3D_ow7y0")
+size = Vector2(2, 2)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bb82g"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 15.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_1uj6e")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2pq4w"]
+height = 10.0
+radius = 1.0
+
+[node name="IceMagic" type="Node3D"]
+script = ExtResource("1_kdxkj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 524288
+mesh = SubResource("SphereMesh_evlt3")
+
+[node name="StaticMist" type="GPUParticles3D" parent="."]
+layers = 524288
+amount = 20
+speed_scale = 0.5
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lrajx")
+draw_pass_1 = SubResource("QuadMesh_mpkbo")
+
+[node name="StaticIcicles" type="GPUParticles3D" parent="."]
+layers = 524288
+amount = 25
+local_coords = true
+trail_enabled = true
+trail_lifetime = 0.05
+process_material = SubResource("ParticleProcessMaterial_yxfrm")
+draw_pass_1 = SubResource("TubeTrailMesh_adjal")
+
+[node name="SprayingMist" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 50
+speed_scale = 3.0
+process_material = SubResource("ParticleProcessMaterial_6lfur")
+draw_pass_1 = SubResource("QuadMesh_6qs48")
+
+[node name="SprayingIcicles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 50
+speed_scale = 3.0
+local_coords = true
+trail_enabled = true
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_bb82g")
+draw_pass_1 = SubResource("TubeTrailMesh_adjal")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+enabled = false
+shape = SubResource("CylinderShape3D_2pq4w")
+target_position = Vector3(0, -5, 0)

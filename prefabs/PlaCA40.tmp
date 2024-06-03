@@ -1,0 +1,1091 @@
+[gd_scene load_steps=32 format=3 uid="uid://d3gjo36eqcpak"]
+
+[ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_5tb34"]
+[ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="2_av7mu"]
+[ext_resource type="PackedScene" uid="uid://cs7jebttpra2k" path="res://prefabs/sword.tscn" id="3_xjin4"]
+[ext_resource type="PackedScene" uid="uid://dcbhg7ukc2gwh" path="res://prefabs/LeftHand.tscn" id="4_4hobn"]
+[ext_resource type="Script" path="res://scripts/AnimationPlayer.gd" id="5_y2erf"]
+[ext_resource type="Material" uid="uid://c23q4343gxnd1" path="res://materials/EnemyMaterial.tres" id="6_3yjf0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6pbfl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_npvqk"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="Animation" id="Animation_4y7d8"]
+resource_name = "Attack"
+length = 0.9
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 0.17, 1, 0.7, -0.35, -0.5, 0.2, 1, 0.7, -0.35, -0.5, 0.27, 1, -0.1, 0, -0.6, 0.3, 1, -0.1, 0, -0.6, 0.36, 1, -0.1, 0, -0.6, 0.46, 1, 0.3, -0.1, -0.6, 0.9, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.3, 1, -0.7, -0.4, -0.7, 0.35, 1, -0.6, -0.45, -0.7, 0.9, 1, -0.7, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.22, 0.29, 0.33, 0.46, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(1.0472, 4.10152, 2.61799), Vector3(1.0472, 4.10152, 2.61799), Vector3(1.0472, 4.10152, 0.698132), Vector3(1.0472, 4.10152, 0.698132), Vector3(1.0472, 4.10152, 0.698132), Vector3(-0.174533, 1.5708, -0.349066)]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.5, 0, 2, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.25, 0.26, 0.3)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D/Sword:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.999995, -0.25, 0, 0.25, 0, 0.999995, -0.25, 0, 0.25, 0, 0.999995, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.25)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ViewPoint/Camera3D/Sword:scale:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.999997, -0.25, 0, 0.25, 0, 0.999997, -0.25, 0, 0.25, 0, 0.999997, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.25)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ViewPoint/Camera3D/Sword:attacking")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.13, 0.47),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimationPlayer:interruptable")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.65, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_h4th8"]
+resource_name = "Attack2"
+length = 0.9
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 0.17, 1, -0.2, -0.4, -0.6, 0.2, 1, -0.2, -0.4, -0.6, 0.27, 1, 0.4, 0, -0.7, 0.3, 1, 0.4, 0, -0.7, 0.36, 1, 0.4, 0, -0.7, 0.46, 1, 0.3, 0, -0.5, 0.9, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.19, 1, -0.6, -0.5, -0.7, 0.23, 1, -0.7, -0.45, -0.7, 0.9, 1, -0.7, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.2, 0.23, 0.27, 0.29),
+"transitions": PackedFloat32Array(1, 1, 1, 1.03527, 1, 1),
+"update": 0,
+"values": [Vector3(0.999998, 0.999995, 0.999997), Vector3(0.999998, 0.999995, 0.999997), Vector3(0.999998, 0.999995, 0.999997), Vector3(5, 1, 1), Vector3(2, 1, 1), Vector3(0.999998, 0.999995, 0.999997)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:attacking")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.18, 0.34),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer:interruptable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.65, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.22, 0.27, 0.3, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(-1.90939, 1.57254, 0.221657), Vector3(-1.90939, 1.57254, 0.221657), Vector3(-1.90939, 1.57254, -2.06298), Vector3(-1.90939, 1.57254, -2.06298), Vector3(-0.17672, 1.57182, -0.349765)]
+}
+
+[sub_resource type="Animation" id="Animation_mit0h"]
+resource_name = "ClimbingAnim"
+length = 5.0
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.46, 4.99),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.349066, 1.5708, -1.39626), Vector3(-0.349066, 1.5708, -1.39626), Vector3(-0.349066, 1.5708, -0.872665), Vector3(-0.17672, 1.57182, -0.349765)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.5, -2, -0.5, 4.99, 1, 0.5, -0.367275, -0.5)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -1.5, -1.5, 4.99, 1, -0.7, -0.5, -0.7)
+
+[sub_resource type="Animation" id="Animation_pi08r"]
+resource_name = "FallingAttack"
+length = 1.5
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.3, 0, -0.4, 0.1, 1, 0.3, 0, 0, 0.26, 1, 0.3, -0.1, -0.6, 0.37, 1, 0.3, -0.1, -0.6, 0.7, 1, 0.3, -0.1, -0.6, 0.81, 1, 0.3, -0.1, -0.6, 0.93, 1, 0.4, 0.3, -0.6, 0.95, 1, 0.4, 0.3, -0.6, 1, 1, 0.4, 0.3, -0.6, 1.21, 1, 0.6, -0.059, -0.545, 1.46, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.37, 0.5, 0.8, 0.87, 0.93, 0.95, 1, 1.21, 1.46),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.46091, 1.57254, -1.20602), Vector3(-2.46091, 1.57254, -1.20602), Vector3(-2.46091, 1.57254, -0.919789), Vector3(-2.46091, 1.57254, -0.919789), Vector3(-2.46091, 1.57254, -0.919789), Vector3(-2.46091, 1.57254, -0.919789), Vector3(-2.46091, 1.57254, -2.6337), Vector3(-2.46091, 1.57254, -2.6337), Vector3(-2.46091, 1.57254, -2.6337), Vector3(-1.1988, 1.57214, -1.24366), Vector3(-0.17672, 1.57182, -0.349765)]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 1, 1, -0.7, -0.5, -0.7)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.13, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 0.5, 1), Vector3(1, 1.2, 1), Vector3(1, 1, 1)]
+}
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.587785, 0, 0, 0.809017, 0.79, 1, -0.587785, 0, 0, 0.809017, 0.99, 1, -0.448401, -0.139384, -0.0710198, 0.880037, 1.18, 1, -0.587785, 0, 0, 0.809017)
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ViewPoint")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0.1, 1, 0, 1.5, 0, 0.25, 1, 0, 0.8, 0, 0.33, 1, 0, 0.8, 0, 0.71, 1, 0, 0.8, 0, 0.82, 1, 0, 0.8, 0, 0.93, 1, 0.3, 0.8, 0, 1.18, 1, 0, 1.5, 0)
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Enemy:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.94),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimationPlayer:audio_play")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.22, 0.73),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["sword_hit", "sword_hit"]
+}
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ViewPoint")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1.48, 1, 0, 0, 0, 1)
+tracks/9/type = "position_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ViewPoint/Camera3D")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1.18, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_tn0e3"]
+resource_name = "FallingWindup"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(-0.176499, 1.57218, -1.20637), Vector3(-2.46091, 1.57254, -1.20602)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 0.1, 1, 0.7, -0.125, -0.45, 0.2, 1, 0.3, 0.1, -0.4)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.2, 1, -0.7, -0.5, -0.7)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 0.5, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0uruq"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 1.2, 1, 0.5, -0.4, -0.5, 2, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.4, -0.7, 0.9, 1, -0.7, -0.45, -0.7, 2, 1, -0.7, -0.4, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765)]
+}
+
+[sub_resource type="Animation" id="Animation_fk1iw"]
+resource_name = "Jumping"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.525, -0.45, -0.561, 1, 1, 0.525, -0.45, -0.561)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.55, -0.722, 1, 1, -0.7, -0.55, -0.722)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.174533, 1.57254, -0.872665), Vector3(-0.174533, 1.57254, -0.872665)]
+}
+
+[sub_resource type="Animation" id="Animation_3vhxl"]
+resource_name = "Magic"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.6, -0.5, 1, 1, 0.5, -0.6, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.3, -0.2, -0.6, 1, 1, -0.3, -0.2, -0.6)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(-0.17672, 1.57182, -0.349765)]
+}
+
+[sub_resource type="Animation" id="Animation_6h8i2"]
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.367275, -0.5, 0.2, 1, 0.5, -0.367275, -0.5)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.204563, 0.677364, -0.0821489, 0.701841, 0.2, 1, -0.204563, 0.677364, -0.0821489, 0.701841)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.2, 1, -0.7, -0.517275, -0.7)
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.999998, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D/Sword:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.999995, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ViewPoint/Camera3D/Sword:scale:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.999997, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.999998, 0.999995, 0.999997)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765)]
+}
+
+[sub_resource type="Animation" id="Animation_k5t6w"]
+resource_name = "Sheath"
+length = 0.5
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.367275, -0.5, 0.16, 1, 0, 0, -0.5, 0.35, 1, 0, 0, -0.5, 0.5, 1, -0.3, -0.7, 0)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.5, 1, -0.7, -1, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.35, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(0.45204, 1.57254, -2.93215), Vector3(0.541052, 1.93208, -3.49066), Vector3(0.541052, 1.93208, -4.36332)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:audio_play")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.16),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["sword_sheath"]
+}
+
+[sub_resource type="Animation" id="Animation_fihmm"]
+resource_name = "Sheathed"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.541052, 1.93208, -4.36332), Vector3(0.541052, 1.93208, -4.36332)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.3, -0.7, 0, 1, 1, -0.3, -0.7, 0)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -1, -0.7, 1, 1, -0.7, -1, -0.7)
+
+[sub_resource type="Animation" id="Animation_w6y7y"]
+resource_name = "ShortClimb"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 1, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.176278, 1.57254, -0.523599), Vector3(-0.176278, 1.57254, -0.523599)]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -2, -0.7, 1, 1, -0.7, -2, -0.7)
+
+[sub_resource type="Animation" id="Animation_uqtjg"]
+resource_name = "Slide"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, 0, -0.5, 1, 1, 0.5, 0, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.5, 0, -0.7, 1, 1, -0.5, 0, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.0472, 1.57254, -0.349066), Vector3(-1.0472, 1.57254, -0.349066)]
+}
+
+[sub_resource type="Animation" id="Animation_mpfa1"]
+resource_name = "SprintJump"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.5, -0.5, 1, 1, 0.5, -0.5, -0.5)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.58, 0.406, -0.499, 0.5, 1, 1, -0.58, 0.406, -0.499, 0.5)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.7, -0.55, -0.7, 1, 1, -0.7, -0.55, -0.7)
+
+[sub_resource type="Animation" id="Animation_e7rqw"]
+resource_name = "SprintingBob"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.5, -0.35, -0.5, 0.2, 1, 0.5, -0.42, -0.52, 0.3, 1, 0.5, -0.45, -0.55, 0.6, 1, 0.5, -0.35, -0.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.5, -0.7, 0.2, 1, -0.67, -0.47, -0.7, 0.3, 1, -0.65, -0.45, -0.7, 0.6, 1, -0.7, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.176278, 1.57254, -0.523599), Vector3(-0.176278, 1.5708, -0.523599), Vector3(-0.176278, 1.57254, -0.523599)]
+}
+
+[sub_resource type="Animation" id="Animation_2rwyf"]
+resource_name = "Unsheath"
+length = 0.7
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.3, -0.7, 0, 0.2, 1, -0.3, 0, -0.5, 0.27, 1, 0, 0.1, -0.7, 0.48, 1, 0.379262, 0.152495, -0.888906, 0.7, 1, 0.5, -0.367275, -0.5)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array()
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.13, 0.2, 0.27, 0.48, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.541052, 1.93208, -4.36332), Vector3(0.541052, 1.93208, -4.36332), Vector3(0.541052, 1.93208, -3.49066), Vector3(0.541052, 1.93208, 0), Vector3(0.455531, 1.88845, 5.23599), Vector3(-0.174533, 1.5708, 5.93412)]
+}
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.7, -1, -0.7, 0.48, 1, -0.7, -0.5, -0.7, 0.7, 1, -0.7, -0.5, -0.7)
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.27, 0.33, 0.39),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.999998, 0.999995, 0.999997), Vector3(1, 0.5, 1), Vector3(0.999998, 0.999995, 0.999997)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer:audio_play")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["sword_draw", "sword_woosh"]
+}
+
+[sub_resource type="Animation" id="Animation_2ypum"]
+resource_name = "WallRun"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.15, 0, -0.4, 1, 1, -0.15, 0, -0.4)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.4, -0.5, -0.7, 1, 1, -0.4, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.07338, 1.57254, 0.794125), Vector3(-1.07338, 1.57254, 0.794125)]
+}
+
+[sub_resource type="Animation" id="Animation_qhu1b"]
+resource_name = "WallRunAttack"
+length = 0.5
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.15, 0, -0.4, 0.03, 1, 0.142, -0.09, -0.6, 0.06, 1, 0.5, -0.2, -0.6, 0.1, 1, 0.5, -0.2, -0.6, 0.28, 1, 0.216, -0.2, -0.512, 0.39, 1, -0.1, -0.1, -0.442, 0.5, 1, -0.15, 0, -0.4)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.4, -0.5, -0.7, 0.5, 1, -0.4, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.1, 0.28, 0.39, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.07338, 1.57254, 0.794125), Vector3(-1.07338, 1.57254, 0.794125), Vector3(-1.37532, 1.99491, -2.79253), Vector3(-1.37532, 1.99491, -2.79253), Vector3(-1.78198, 1.80991, -1.58999), Vector3(-1.42244, 1.30202, -0.162316), Vector3(-1.07338, 1.57254, 0.794125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:interruptable")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.48),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D/Sword:attacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.03, 0.09),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0.999998, 0.999995, 0.999997), Vector3(2, 1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dfcy2"]
+resource_name = "WallRunRight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.80816, 2.35794, -0.129154), Vector3(-1.80816, 2.35794, -0.129154)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.1, -0.1, -0.4, 1, 1, -0.1, -0.1, -0.4)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.4, -0.5, -0.7, 1, 1, -0.4, -0.5, -0.7)
+
+[sub_resource type="Animation" id="Animation_d4l77"]
+resource_name = "WallRunRightAttack"
+length = 0.6
+step = 0.01
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.1, -0.1, -0.4, 0.03, 1, 0.083, -0.1, -0.6, 0.07, 1, 0.3, 0, -0.5, 0.12, 1, 0.3, 0, -0.5, 0.25, 1, 0.092, -0.2, -0.448, 0.6, 1, -0.1, -0.1, -0.4)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.4, -0.5, -0.7, 0.3, 1, -0.4, -0.5, -0.7)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.07, 0.12, 0.25, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.80816, 2.35794, -0.129154), Vector3(-1.80816, 2.35794, -0.129154), Vector3(-1.80816, 0.741765, -1.39626), Vector3(-1.80816, 0.741765, -1.39626), Vector3(-1.494, 1.13446, -0.905826), Vector3(-1.80816, 2.35794, -0.129154)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewPoint/Camera3D/Sword:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.14),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(1, 1, 1), Vector3(2.5, 1, 1), Vector3(1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ViewPoint/Camera3D/Sword:attacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.04, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer:interruptable")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.51),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ilqd1"]
+resource_name = "WeaponBob"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewPoint/Camera3D/Sword")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.524555, -0.337, -0.561428, 0.25, 1, 0.525, -0.357, -0.561, 0.5, 1, 0.524555, -0.337, -0.561428, 0.75, 1, 0.525, -0.357, -0.561, 1, 1, 0.524555, -0.337, -0.561428)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewPoint/Camera3D/LeftHand")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.7, -0.4, -0.722, 0.3, 1, -0.7, -0.42, -0.722, 0.5, 1, -0.7, -0.4, -0.722, 0.75, 1, -0.7, -0.42, -0.722, 1, 1, -0.7, -0.4, -0.722)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewPoint/Camera3D/Sword:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.17672, 1.57182, -0.349765), Vector3(-0.17672, 1.57182, -0.349765)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5g4w2"]
+_data = {
+"Attack": SubResource("Animation_4y7d8"),
+"Attack2": SubResource("Animation_h4th8"),
+"ClimbingAnim": SubResource("Animation_mit0h"),
+"FallingAttack": SubResource("Animation_pi08r"),
+"FallingWindup": SubResource("Animation_tn0e3"),
+"Idle": SubResource("Animation_0uruq"),
+"Jumping": SubResource("Animation_fk1iw"),
+"Magic": SubResource("Animation_3vhxl"),
+"RESET": SubResource("Animation_6h8i2"),
+"Sheath": SubResource("Animation_k5t6w"),
+"Sheathed": SubResource("Animation_fihmm"),
+"ShortClimb": SubResource("Animation_w6y7y"),
+"Slide": SubResource("Animation_uqtjg"),
+"SprintJump": SubResource("Animation_mpfa1"),
+"SprintingBob": SubResource("Animation_e7rqw"),
+"Unsheath": SubResource("Animation_2rwyf"),
+"WallRun": SubResource("Animation_2ypum"),
+"WallRunAttack": SubResource("Animation_qhu1b"),
+"WallRunRight": SubResource("Animation_dfcy2"),
+"WallRunRightAttack": SubResource("Animation_d4l77"),
+"WeaponBob": SubResource("Animation_ilqd1")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7ivf"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_5tb34")
+
+[node name="StandingCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_6pbfl")
+
+[node name="CrouchingCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CapsuleShape3D_npvqk")
+disabled = true
+
+[node name="ViewPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="ViewPoint"]
+transform = Transform3D(1, 0, 0, 0, 0.309018, 0.951057, 0, -0.951057, 0.309018, 0, 0, 0)
+top_level = true
+script = ExtResource("2_av7mu")
+
+[node name="Sword" parent="ViewPoint/Camera3D" instance=ExtResource("3_xjin4")]
+transform = Transform3D(0.0592813, -0.165507, 0.984422, -0.337339, 0.924817, 0.175801, -0.939513, -0.342506, -0.00100775, 0.5, -0.367275, -0.5)
+
+[node name="LeftHand" parent="ViewPoint/Camera3D" instance=ExtResource("4_4hobn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, -0.5, -0.7)
+active = true
+
+[node name="ClimbDetector" type="RayCast3D" parent="ViewPoint"]
+target_position = Vector3(0, 0, -1)
+collision_mask = 2
+hit_back_faces = false
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="DropKillDetector" type="RayCast3D" parent="ViewPoint"]
+target_position = Vector3(0, 0, -6)
+collision_mask = 8
+hit_back_faces = false
+collide_with_areas = true
+
+[node name="WallClimbDetectorLeft" type="RayCast3D" parent="ViewPoint"]
+target_position = Vector3(-1, 0, 0)
+
+[node name="WallClimbDetectorRight" type="RayCast3D" parent="ViewPoint"]
+target_position = Vector3(1, 0, 0)
+
+[node name="WallClimbDetectorFront" type="RayCast3D" parent="ViewPoint"]
+target_position = Vector3(0, -0.5, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="FloorDetector" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5g4w2")
+}
+blend_times = [&"SprintingBob", &"ShortClimb", 0.2, &"SprintingBob", &"SprintingBob", 0.2, &"SprintingBob", &"Attack2", 0.1, &"SprintingBob", &"SprintJump", 0.1, &"SprintingBob", &"WallRun", 0.2, &"SprintingBob", &"ClimbingAnim", 0.2, &"SprintingBob", &"Jumping", 0.2, &"SprintingBob", &"WallRunRight", 0.2, &"SprintingBob", &"WeaponBob", 0.2, &"SprintingBob", &"Idle", 0.2, &"SprintingBob", &"Magic", 0.2, &"SprintingBob", &"Slide", 0.2, &"SprintingBob", &"RESET", 0.2, &"Attack", &"SprintingBob", 0.2, &"Attack", &"Attack", 0.15, &"Attack", &"Attack2", 0.15, &"Attack", &"SprintJump", 0.1, &"Attack", &"Jumping", 0.1, &"Attack", &"WeaponBob", 0.2, &"Attack", &"Idle", 0.1, &"Attack", &"Magic", 0.2, &"Attack", &"Slide", 0.1, &"Attack", &"RESET", 0.1, &"Attack2", &"SprintingBob", 0.1, &"Attack2", &"Attack", 0.15, &"Attack2", &"Attack2", 0.15, &"Attack2", &"WallRun", 0.2, &"Attack2", &"Jumping", 0.1, &"Attack2", &"WeaponBob", 0.1, &"Attack2", &"Idle", 0.1, &"Attack2", &"Magic", 0.2, &"Attack2", &"Slide", 0.1, &"Attack2", &"RESET", 0.1, &"SprintJump", &"SprintingBob", 0.1, &"SprintJump", &"Attack2", 0.1, &"SprintJump", &"SprintJump", 0.1, &"SprintJump", &"Jumping", 0.1, &"SprintJump", &"WeaponBob", 0.1, &"SprintJump", &"Idle", 0.1, &"SprintJump", &"Magic", 0.2, &"SprintJump", &"Slide", 0.1, &"WallRun", &"Attack2", 0.2, &"WallRun", &"Jumping", 0.2, &"Unsheath", &"SprintingBob", 0.2, &"Unsheath", &"SprintJump", 0.2, &"Unsheath", &"WallRun", 0.2, &"Unsheath", &"Jumping", 0.2, &"Unsheath", &"WallRunAttack", 0.2, &"Unsheath", &"WallRunRight", 0.2, &"Unsheath", &"WallRunRightAttack", 0.2, &"Unsheath", &"WeaponBob", 0.2, &"Unsheath", &"Idle", 0.2, &"Unsheath", &"Magic", 0.2, &"Unsheath", &"Slide", 0.2, &"ClimbingAnim", &"SprintingBob", 0.2, &"ClimbingAnim", &"Attack", 0.1, &"ClimbingAnim", &"Attack2", 0.1, &"ClimbingAnim", &"SprintJump", 0.1, &"ClimbingAnim", &"ClimbingAnim", 0.1, &"ClimbingAnim", &"Jumping", 0.1, &"ClimbingAnim", &"WeaponBob", 0.2, &"ClimbingAnim", &"Idle", 0.2, &"ClimbingAnim", &"Magic", 0.1, &"ClimbingAnim", &"Slide", 0.1, &"ClimbingAnim", &"RESET", 0.1, &"Jumping", &"ShortClimb", 0.2, &"Jumping", &"SprintingBob", 0.2, &"Jumping", &"Attack", 0.1, &"Jumping", &"Attack2", 0.1, &"Jumping", &"SprintJump", 0.1, &"Jumping", &"WallRun", 0.25, &"Jumping", &"ClimbingAnim", 0.2, &"Jumping", &"Jumping", 0.1, &"Jumping", &"WallRunRight", 0.25, &"Jumping", &"WeaponBob", 0.2, &"Jumping", &"Idle", 0.2, &"Jumping", &"Magic", 0.2, &"Jumping", &"Slide", 0.2, &"Jumping", &"RESET", 0.1, &"WallRunAttack", &"Jumping", 0.2, &"WallRunRight", &"Jumping", 0.2, &"WallRunRightAttack", &"Jumping", 0.2, &"WeaponBob", &"ShortClimb", 0.1, &"WeaponBob", &"SprintingBob", 0.2, &"WeaponBob", &"Attack", 0.2, &"WeaponBob", &"Attack2", 0.1, &"WeaponBob", &"SprintJump", 0.1, &"WeaponBob", &"ClimbingAnim", 0.1, &"WeaponBob", &"Jumping", 0.2, &"WeaponBob", &"WeaponBob", 0.1, &"WeaponBob", &"Idle", 0.1, &"WeaponBob", &"Magic", 0.1, &"WeaponBob", &"Slide", 0.1, &"WeaponBob", &"RESET", 0.1, &"Idle", &"SprintingBob", 0.2, &"Idle", &"Attack", 0.1, &"Idle", &"Attack2", 0.1, &"Idle", &"Jumping", 0.2, &"Idle", &"WeaponBob", 0.2, &"Idle", &"Idle", 0.1, &"Idle", &"Magic", 0.1, &"Idle", &"RESET", 0.1, &"Magic", &"SprintingBob", 0.2, &"Magic", &"Attack", 0.1, &"Magic", &"Attack2", 0.2, &"Magic", &"SprintJump", 0.2, &"Magic", &"Jumping", 0.2, &"Magic", &"WeaponBob", 0.2, &"Magic", &"Idle", 0.2, &"Magic", &"Magic", 0.2, &"Magic", &"Slide", 0.2, &"Magic", &"RESET", 0.2, &"Slide", &"SprintingBob", 0.2, &"Slide", &"Attack", 0.2, &"Slide", &"Attack2", 0.2, &"Slide", &"SprintJump", 0.1, &"Slide", &"Jumping", 0.1, &"Slide", &"WeaponBob", 0.2, &"Slide", &"Idle", 0.2, &"Slide", &"Magic", 0.1, &"Slide", &"Slide", 0.1, &"Slide", &"RESET", 0.1, &"RESET", &"ShortClimb", 0.1, &"RESET", &"SprintingBob", 0.1, &"RESET", &"Attack", 0.1, &"RESET", &"Attack2", 0.1, &"RESET", &"SprintJump", 0.1, &"RESET", &"WallRun", 0.1, &"RESET", &"Unsheath", 0.1, &"RESET", &"ClimbingAnim", 0.1, &"RESET", &"Jumping", 0.1, &"RESET", &"Sheathed", 0.1, &"RESET", &"WallRunAttack", 0.1, &"RESET", &"WallRunRight", 0.1, &"RESET", &"WallRunRightAttack", 0.1, &"RESET", &"WeaponBob", 0.2, &"RESET", &"Idle", 0.1, &"RESET", &"Magic", 0.1, &"RESET", &"Slide", 0.1, &"RESET", &"Sheath", 0.1, &"RESET", &"RESET", 0.1]
+script = ExtResource("5_y2erf")
+interruptable = true
+audio_play = "sword_hit"
+
+[node name="Enemy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+material_override = ExtResource("6_3yjf0")
+mesh = SubResource("BoxMesh_n7ivf")
+
+[connection signal="attack" from="." to="AnimationPlayer" method="_on_character_body_3d_attack"]
+[connection signal="changed_state" from="." to="AnimationPlayer" method="_on_character_body_3d_changed_state"]
+[connection signal="magic_end" from="." to="ViewPoint/Camera3D/LeftHand" method="_on_character_body_3d_magic_end"]
+[connection signal="magic_end" from="." to="AnimationPlayer" method="_on_character_body_3d_magic_end"]
+[connection signal="magic_start" from="." to="ViewPoint/Camera3D/LeftHand" method="_on_character_body_3d_magic_start"]
+[connection signal="magic_start" from="." to="AnimationPlayer" method="_on_character_body_3d_magic_start"]
+[connection signal="sheath" from="." to="AnimationPlayer" method="_on_character_body_3d_sheath"]
+[connection signal="unsheath" from="." to="AnimationPlayer" method="_on_character_body_3d_unsheath"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_started"]

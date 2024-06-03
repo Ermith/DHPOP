@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcbhg7ukc2gwh"]
+
+[ext_resource type="Script" path="res://scripts/LeftHand.gd" id="1_0tet1"]
+[ext_resource type="PackedScene" uid="uid://nbc4vhf8nlht" path="res://prefabs/IceMagic.tscn" id="2_iei17"]
+[ext_resource type="PackedScene" uid="uid://yc7s5h8q7ber" path="res://prefabs/FireMagic.tscn" id="3_f3bgs"]
+
+[node name="LeftHand" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5858, -0.527749, -0.7)
+script = ExtResource("1_0tet1")
+
+[node name="IceMagic" parent="." instance=ExtResource("2_iei17")]
+
+[node name="FireMagic" parent="." instance=ExtResource("3_f3bgs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

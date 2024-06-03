@@ -1,0 +1,107 @@
+[gd_scene load_steps=18 format=3 uid="uid://bde5kuhu72287"]
+
+[ext_resource type="Script" path="res://scripts/camera_test_script.gd" id="1_etv37"]
+[ext_resource type="Material" uid="uid://d4nphwxucn4lp" path="res://materials/debug_material.tres" id="2_mhqa8"]
+[ext_resource type="Material" uid="uid://bmo76ltem5bl3" path="res://materials/DezertMaterial.tres" id="2_owxus"]
+[ext_resource type="Script" path="res://scripts/test_character.gd" id="3_ey2jl"]
+[ext_resource type="Script" path="res://scripts/rotation.gd" id="3_mxprk"]
+[ext_resource type="Script" path="res://scripts/physics_interpolation.gd" id="3_x3fk0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u58ku"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_plfl2"]
+sky_material = SubResource("ProceduralSkyMaterial_u58ku")
+
+[sub_resource type="Environment" id="Environment_p3al7"]
+background_mode = 2
+sky = SubResource("Sky_plfl2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_tb0fu"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tbmft"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7qjkj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x5mvq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3disb"]
+material = ExtResource("2_mhqa8")
+size = Vector3(10, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ppgm7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_iou1a"]
+material = ExtResource("2_mhqa8")
+size = Vector3(10, 1, 10)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cp6bu"]
+
+[node name="TestScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p3al7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.738385, 0.67438, 0, -0.67438, -0.738385, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85941, 2.81456)
+script = ExtResource("1_etv37")
+target = NodePath("../Player/CollisionShape3D")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="Node3D" parent="Geometry"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+material_override = ExtResource("2_mhqa8")
+mesh = SubResource("BoxMesh_tb0fu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Floor" groups=["floor_outdoors"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_tbmft")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3046, -2.11154)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StaticBody3D"]
+shape = SubResource("BoxShape3D_7qjkj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_x5mvq")
+
+[node name="Objects" type="Node3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Geometry/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.7452, 0)
+script = ExtResource("3_mxprk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Objects/RigidBody3D"]
+material_override = ExtResource("2_owxus")
+mesh = SubResource("BoxMesh_3disb")
+script = ExtResource("3_x3fk0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Objects/RigidBody3D"]
+shape = SubResource("BoxShape3D_ppgm7")
+
+[node name="Node3D" type="Node3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6097, 2.49654, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Node3D"]
+mesh = SubResource("BoxMesh_iou1a")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(0.663195, 0, 0.748446, 0, 1, 0, -0.748446, 0, 0.663195, 1.64151, 1.77813, 0.953897)
+script = ExtResource("3_ey2jl")
+camera = NodePath("../Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_cp6bu")
