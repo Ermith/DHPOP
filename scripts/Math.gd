@@ -41,10 +41,6 @@ static func smooth_damp_vec(current: Vector3, target: Vector3, currentVlocity: V
 	
 	return [current, currentVlocity]
 
-# Called when the node enters the scene tree for the first time.
-static func Hey():
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):

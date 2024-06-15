@@ -56,7 +56,14 @@ func determine_state(player: PlayerController):
 	var state: NewMovementState
 	
 	if timer < 0:
+		if not player.is_on_floor():
 			state = player.jumping_state
+		elif not move_condition(player):
+			state = player.standing_state
+		elif Input.is_action_pressed("Sprint"):
+			state = player.running_state
+		else:
+			state = player.walking_state
 		
 	if state == null: return
 	

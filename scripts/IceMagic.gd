@@ -26,6 +26,7 @@ func _process(_delta):
 		var col = shape_cast_3d.get_collider(i) as Node3D
 		if col == null: continue
 		
+		# TODO: Damage instead of delete
 		if col.is_in_group("damageable"):
 			col.queue_free()
 			AudioManager.play_sfx("freeze")

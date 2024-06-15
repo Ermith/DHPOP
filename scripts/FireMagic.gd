@@ -4,7 +4,6 @@ extends Node3D
 @onready var spraying_fire: GPUParticles3D = $SprayingFire
 @onready var shape_cast_3d: ShapeCast3D = $ShapeCast3D
 
-
 var active = false
 var audio: AudioStreamPlayer
 
@@ -28,6 +27,7 @@ func _process(_delta):
 		var col = shape_cast_3d.get_collider(i) as Node3D
 		if col == null: continue
 		
+		# TODO: Damage instead of delete
 		if col.is_in_group("damageable"):
 			col.queue_free()
 			AudioManager.play_sfx("burn")

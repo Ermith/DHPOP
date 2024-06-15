@@ -23,7 +23,7 @@ var ignore_rotation: bool = false
 
 var camera_effects: Array
 
-var bob_state: BobState = BobState.RIGHT_STEP
+var bob_state: BobState = BobState.NONE
 enum BobState {
 	NONE,
 	RIGHT_STEP,

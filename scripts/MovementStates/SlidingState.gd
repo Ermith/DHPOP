@@ -59,7 +59,7 @@ func determine_state(player: PlayerController):
 			anim.timer = 0.95
 	
 	elif timer < 0:
-		if _get_ground_dir(player).is_zero_approx():
+		if move_condition(player):
 			state = player.standing_state
 		elif Input.is_action_pressed("Sprint"):
 			state = player.running_state

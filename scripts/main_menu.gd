@@ -11,9 +11,7 @@ func _ready():
 func _on_new_game_button_pressed():
 	get_tree().change_scene_to_packed(game_scene)
 
-
 func _on_options_button_pressed():
-	
 	pass # Replace with function body.
 
 

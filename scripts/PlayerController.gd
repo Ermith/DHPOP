@@ -1,6 +1,7 @@
 extends CharacterBody3D
 class_name PlayerController
 
+#region EXPOSED PARAMETERS
 @export var walking_speed: float = 6
 @export var sprinting_speed: float = 10
 @export var air_speed: float = 2
@@ -8,11 +9,12 @@ class_name PlayerController
 @export var coyote_time: float = 0.4
 @export var gravity_time: float = 0.2
 @export var gravity_multiplier: float = 7
+#endregion
 
+#region ON READY
 @onready var player_camera = $ViewPoint/CameraContainer
 @onready var view_point = $ViewPoint
-
-@onready var standing_collision_shape = $StandingCollisionShape
+@onready var standing_collision_shape: CollisionShape3D = $StandingCollisionShape
 @onready var crouching_collision_shape = $CrouchingCollisionShape
 @onready var wall_climb_detector_front = $ViewPoint/WallClimbDetectorFront
 @onready var wall_climb_detector_left = $ViewPoint/WallClimbDetectorLeft
@@ -23,13 +25,9 @@ class_name PlayerController
 @onready var red_pointer = $HUD/RedPointer
 @onready var pointer = $HUD/Pointer
 @onready var drop_kill_detector = $ViewPoint/CameraContainer/DropKillDetector
+#endregion
 
-
-var gravity = Vector3.DOWN * 10
-var prev_input = Vector3.ZERO
-var speed: float = 0
-var current_vel = Vector3.ZERO
-
+#region STATES
 var movement_state: NewMovementState
 var standing_state: StandingState
 var walking_state: WalkingState
@@ -40,9 +38,17 @@ var wall_running_front_state: WallRunningFrontState
 var wall_running_side_state: WallRunningSideState
 var climbing_state: ClimbingState
 var drop_kill_state: DropKillState
+#endregion
+
+var gravity = Vector3.DOWN * 10
+var prev_input = Vector3.ZERO
+var speed: float = 0
+var current_vel = Vector3.ZERO
 
 func _ready():
+	# TODO: Move this line to Game Controller
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	standing_state = StandingState.new()
 	walking_state = WalkingState.new(walking_speed)
 	running_state = RunningState.new(sprinting_speed)
@@ -53,10 +59,13 @@ func _ready():
 	climbing_state = ClimbingState.new(0.65)
 	drop_kill_state = DropKillState.new()
 	
+	# This will be the starting state when spawned
 	movement_state = standing_state
 
 func _process(_delta):
+	# TODO: Move somewhere else... Maybe based on the weapon and range?
 	red_pointer.visible = drop_kill_detector.is_colliding()
+	
 	
 	if Input.is_action_just_pressed("Interact"):
 		if animation_player.sheathed:
@@ -64,12 +73,17 @@ func _process(_delta):
 		else:
 			animation_player.sheath()
 	
+
+	# Can Attack also means - can use left hand - magic
+	# TODO: rework "Magic" to more general "Left Hand"	
 	if not movement_state.attack == "":
 		if Input.is_action_just_pressed("Attack"):
 			animation_player.play_attack(movement_state.attack)
 		elif Input.is_action_just_pressed("Magic"):
 			animation_player.play_attack("Magic")
-		elif Input.is_action_just_released("Magic"):
+
+	# Also stops magic when changes to state that can't attack, like sprinting
+	if Input.is_action_just_released("Magic") or movement_state.attack == "":
 			animation_player.stop_magic()
 
 func _physics_process(delta):

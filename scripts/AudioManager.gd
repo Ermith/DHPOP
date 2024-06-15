@@ -8,13 +8,15 @@ static var instance: AudioManager
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	# Singleton
 	instance = self
-	# Common
+	
+	# Common Sounds
 	var common_sounds_array = get_children()
 	for sound in common_sounds_array:
 		if sound is AudioStreamPlayer:
 			common_sounds[sound.name] = sound
-	
+
 	# Steps
 	var steps_node = get_node("Steps")
 	var step_array = steps_node.get_children()
@@ -26,7 +28,6 @@ func _ready():
 		else:
 			steps[category].append(step_sound)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
@@ -35,7 +36,7 @@ static func play_sfx(_name: String):
 	if instance == null: return
 	var audio: AudioStreamPlayer = instance.common_sounds[_name]
 	audio.play()
-	
+
 static func stop_sfx(_name: String):
 	instance.common_sounds[_name].stop()
 

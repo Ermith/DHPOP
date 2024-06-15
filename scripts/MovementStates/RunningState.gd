@@ -23,7 +23,7 @@ func determine_state(player: PlayerController):
 	if not player.is_on_floor() or Input.is_action_just_pressed("Jump"):
 		state = player.jumping_state
 	
-	elif get_input_direction(player).is_zero_approx():
+	elif not move_condition(player):
 		state = player.standing_state
 	
 	elif not Input.is_action_pressed("Sprint"):
@@ -33,6 +33,6 @@ func determine_state(player: PlayerController):
 		state = player.sliding_state
 		
 	if state == null: return
-	
+	player.player_camera.bob_end()
 	state.enter_state(player)
 	player.movement_state = state
